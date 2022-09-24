@@ -27,7 +27,7 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return db_user.find_user_by_id(id, db)
 
 # update user
-@router.put('/{id}')
+@router.patch('/{id}')
 def update_user(id: int, request: UserBase, db: Session = Depends(get_db)):
     return db_user.update_user(id, request, db)
 
