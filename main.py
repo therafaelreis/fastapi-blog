@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, status
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import HTTPException
+from exceptions import StoryException
 from routers import blog_get
 from routers import blog_post
 from routers import user
@@ -17,5 +20,12 @@ app.include_router(article.router)
 def index():
     return {"message": "Hello World"}
 
+
+@app.exception_handler(StoryException)
+def story_exception_handler(request: Request, exc: StoryException):
+    return JSONResponse(
+        status_code=status.HTTP_418_IM_A_TEAPOT,
+        content={'detail': exc.name}
+    )
 
 models.Base.metadata.create_all(engine)
