@@ -45,6 +45,12 @@ class ArticleResponse(BaseModel):
     title: str
     content: str
     published: bool
-    user: User
+    class Config():
+        orm_mode = True
+
+
+class ArticleCreateResponse(BaseModel):
+    data: ArticleResponse
+    currentUser: User
     class Config():
         orm_mode = True

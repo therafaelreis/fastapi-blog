@@ -53,3 +53,11 @@ def delete_user(id: int, db: Session):
     db.delete(user)
     db.commit()
     return 'ok'
+
+
+def get_user_by_username(username: str, db: Session):
+    user = db.query(DbUser).filter(DbUser.username == username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'User with username {username} not found')
+    return user
