@@ -7,9 +7,12 @@ from routers import blog_post
 from routers import user
 from routers import article
 from routers import product
+from routers import file
 from auth import authentication
 from db import models
 from db.database import engine
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI()
 
@@ -19,6 +22,7 @@ app.include_router(user.router)
 app.include_router(article.router)
 app.include_router(product.router)
 app.include_router(authentication.router)
+app.include_router(file.router)
 
 @app.get("/")
 def index():
@@ -33,3 +37,4 @@ def story_exception_handler(request: Request, exc: StoryException):
     )
 
 models.Base.metadata.create_all(engine)
+app.mount('/files', StaticFiles(directory="files"), name='file')
