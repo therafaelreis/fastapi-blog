@@ -1,5 +1,4 @@
 from importlib.metadata import metadata
-from tkinter import Image
 from typing import Dict, Optional, List
 from fastapi import APIRouter, Query, Body, Path
 from pydantic import BaseModel
